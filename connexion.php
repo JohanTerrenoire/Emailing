@@ -1,4 +1,6 @@
 <?php
+  session_start();
+  $_SESSION['pseudo'] = $_POST['pseudo'];
   try {
     //Connexion à la base de données.
     $user = 'usermail';//L'utilisateur pour se connecter
@@ -12,7 +14,7 @@
   }
   try {
     $req = $bdd->prepare('SELECT * FROM utilisateurs WHERE pseudo = :user');//Préparer la requête
-    $req->bindParam('user', $_POST['pseudo']);
+    $req->bindParam('user', $_SESSION['pseudo']);
     $req->execute();
   }
   catch(Exception $e){
@@ -23,6 +25,6 @@
     echo "<meta http-equiv='refresh' content='1;URL=reception.php'>";
   }else {
     echo "<h3>L'utilisateur n'existe pas !</h3>";
-    echo "<meta http-equiv='refresh' content='1;URL=accueil.html'>";
+    // echo "<meta http-equiv='refresh' content='1;URL=accueil.html'>";
   }
  ?>
